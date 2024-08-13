@@ -10,7 +10,14 @@ body {
     flex-direction: column; 
     height: 60vh; 
     position: relative;
+    background-color: #e0f7fa; /* Light cyan color */
+    background-image: url('background.jpg'); /* Use your JPG image here */
+    background-size: cover; /* Stretch the texture to cover the entire background */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
 }
+
+
 .question-box { 
     margin-bottom: 20px; 
     padding: 20px; 
