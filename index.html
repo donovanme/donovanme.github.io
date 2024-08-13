@@ -13,7 +13,7 @@
             text-align: center; 
             display: flex; 
             flex-direction: column; 
-            height: 80vh; /* Full viewport height */
+            height: 60vh; 
             position: relative;
         }
         .question-box { 
@@ -22,10 +22,10 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             background-color: #f9f9f9;
-            flex-grow: 1; /* Allow question box to take up remaining space */
+            flex-grow: 1; 
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center question content */
+            justify-content: center; 
         }
         .category { 
             font-weight: bold; 
@@ -49,9 +49,9 @@
             right: 0;
             width: 100%; 
             display: flex; 
-            justify-content: space-around; 
+            justify-content: center; 
             padding: 10px 20px;
-            box-sizing: border-box; /* Include padding in width calculations */
+            box-sizing: border-box;
         }
         #next-question { 
             padding: 20px 40px; 
@@ -61,28 +61,20 @@
             border: none; 
             border-radius: 5px;
             cursor: pointer;
-            flex-grow: 1; 
-            max-width: 70%; /* Limit max width of next button */
-        }
-        #back-question { 
-            padding: 10px 20px; 
-            font-size: 1em; 
-            background-color: #6c757d; 
-            color: white; 
-            border: none; 
-            border-radius: 5px;
-            cursor: pointer;
-            flex-grow: 0; 
+            max-width: 60%; 
         }
     </style>
 </head>
 <body>
     <!-- <h1>Trivia Questions</h1> -->
-    <div id="question-container" class="question-box"></div>
+    <div id="question-container" class="question-box">
+        <div class="category"></div>
+        <div class="question"></div>
+        <div class="answer"></div>
+    </div>
 
-    <!-- Button Container outside of the question box, fixed at the bottom -->
+    <!-- Button Container fixed at the bottom -->
     <div class="button-container">
-        <button id="back-question">Back</button>
         <button id="next-question">Show Answer</button>
     </div>
     
@@ -90,40 +82,34 @@
     <script>
         let currentIndex = 0;
         let showingAnswer = false;
-        const container = document.getElementById('question-container');
+
+        const categoryElement = document.querySelector('.category');
+        const questionElement = document.querySelector('.question');
+        const answerElement = document.querySelector('.answer');
+        const nextButton = document.getElementById('next-question');
 
         function showQuestion(index) {
             const questionData = questions[index];
-            container.innerHTML = `
-                <div>
-                    <div class="category">${questionData.category}</div>
-                    <div class="question">${questionData.question}</div>
-                    <div class="answer">${questionData.answer}</div>
-                </div>
-            `;
+            categoryElement.textContent = questionData.category;
+            questionElement.textContent = questionData.question;
+            answerElement.textContent = questionData.answer;
+            answerElement.style.display = 'none'; // Hide the answer initially
+            nextButton.textContent = 'Show Answer';
             showingAnswer = false;
-            addEventListeners();
         }
 
-        function addEventListeners() {
-            document.getElementById('next-question').addEventListener('click', () => {
-                if (showingAnswer) {
-                    currentIndex = (currentIndex + 1) % questions.length;
-                    showQuestion(currentIndex);
-                } else {
-                    document.querySelector('.answer').style.display = 'block';
-                    document.getElementById('next-question').textContent = "Next Question";
-                    showingAnswer = true;
-                }
-            });
-
-            document.getElementById('back-question').addEventListener('click', () => {
-                currentIndex = (currentIndex - 1 + questions.length) % questions.length;
+        nextButton.addEventListener('click', () => {
+            if (showingAnswer) {
+                currentIndex = (currentIndex + 1) % questions.length;
                 showQuestion(currentIndex);
-            });
-        }
+            } else {
+                answerElement.style.display = 'block';
+                nextButton.textContent = 'Next Question';
+                showingAnswer = true;
+            }
+        });
 
-        // Shuffle questions and show the first question on load
+        // Shuffle questions once at the start and show the first question
         questions.sort(() => Math.random() - 0.5);
         showQuestion(currentIndex);
     </script>
