@@ -1,20 +1,35 @@
 /* styles.css */
 
-body { 
-    font-family: Arial, sans-serif; 
-    max-width: 800px; 
-    margin: auto; 
-    padding: 20px; 
-    text-align: center; 
-    display: flex; 
-    flex-direction: column; 
-    height: 60vh; 
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
     position: relative;
-    background-color: #e0f7fa; /* Light cyan color */
-    background-image: url('background.jpg'); /* Use your JPG image here */
-    background-size: cover; /* Stretch the texture to cover the entire background */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+    background-color: rgba(224, 247, 250, 0.7); /* Semi-transparent background color */
+    background-image: url('background.jpg'); /* Use your PNG image here */
+    background-size: auto; /* Do not stretch the image */
+    background-repeat: repeat; /* Tile the image */
+    background-position: center; /* Center the tiling */
+    background-blend-mode: multiply; /* Blend the image with the background color */
+}
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('seamless-background.png'); /* Your PNG image */
+    background-size: auto;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.5; /* Control the transparency */
+    z-index: -1; /* Ensure it's behind the content */
 }
 
 
