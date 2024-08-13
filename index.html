@@ -7,13 +7,14 @@
     <style>
         body { 
             font-family: Arial, sans-serif; 
-            max-width: 800px; /* Increased max-width for better layout */
+            max-width: 800px; 
             margin: auto; 
             padding: 20px; 
-            display: flex;
-            flex-direction: column;
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
             height: 100vh; /* Full viewport height */
-            text-align: center;
+            position: relative;
         }
         .question-box { 
             margin-bottom: 20px; 
@@ -21,42 +22,47 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             background-color: #f9f9f9;
-            flex-grow: 1; /* Allow it to grow and fill space */
+            flex-grow: 1; /* Allow question box to take up remaining space */
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Space between question and buttons */
+            justify-content: center; /* Center question content */
         }
         .category { 
             font-weight: bold; 
             color: #333; 
-            font-size: 1.5em; /* Larger category text */
+            font-size: 1.5em; 
         }
         .question { 
             margin: 20px 0; 
-            font-size: 1.8em; /* Larger question text */
+            font-size: 1.8em; 
         }
         .answer { 
             display: none; 
             color: green; 
             margin-top: 20px; 
-            font-size: 1.8em; /* Larger answer text */
+            font-size: 1.8em; 
         }
         .button-container { 
+            position: fixed; 
+            bottom: 20px; 
+            left: 0; 
+            right: 0;
+            width: 100%; 
             display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            margin-top: 30px; /* Added margin for spacing */
-            width: 100%; /* Ensure full width for the buttons */
+            justify-content: space-around; 
+            padding: 10px 20px;
+            box-sizing: border-box; /* Include padding in width calculations */
         }
         #next-question { 
             padding: 20px 40px; 
-            font-size: 1.5em; /* Larger button text */
+            font-size: 1.5em; 
             background-color: #007bff; 
             color: white; 
             border: none; 
             border-radius: 5px;
             cursor: pointer;
-            flex-grow: 1; /* Make this button grow to fill the space */
+            flex-grow: 1; 
+            max-width: 70%; /* Limit max width of next button */
         }
         #back-question { 
             padding: 10px 20px; 
@@ -66,13 +72,19 @@
             border: none; 
             border-radius: 5px;
             cursor: pointer;
-            flex-grow: 0; /* Keep this button a fixed size */
+            flex-grow: 0; 
         }
     </style>
 </head>
 <body>
     <h1>Trivia Questions</h1>
-    <div id="question-container"></div>
+    <div id="question-container" class="question-box"></div>
+
+    <!-- Button Container outside of the question box, fixed at the bottom -->
+    <div class="button-container">
+        <button id="back-question">Back</button>
+        <button id="next-question">Show Answer</button>
+    </div>
     
     <script src="questions.js"></script>
     <script>
@@ -83,16 +95,10 @@
         function showQuestion(index) {
             const questionData = questions[index];
             container.innerHTML = `
-                <div class="question-box">
-                    <div>
-                        <div class="category">${questionData.category}</div>
-                        <div class="question">${questionData.question}</div>
-                        <div class="answer">${questionData.answer}</div>
-                    </div>
-                    <div class="button-container">
-                        <button id="back-question">Back</button>
-                        <button id="next-question">Show Answer</button>
-                    </div>
+                <div>
+                    <div class="category">${questionData.category}</div>
+                    <div class="question">${questionData.question}</div>
+                    <div class="answer">${questionData.answer}</div>
                 </div>
             `;
             showingAnswer = false;
