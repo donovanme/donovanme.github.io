@@ -10,7 +10,10 @@
             max-width: 800px; /* Increased max-width for better layout */
             margin: auto; 
             padding: 20px; 
-            text-align: center; /* Center the text */
+            display: flex;
+            flex-direction: column;
+            height: 100vh; /* Full viewport height */
+            text-align: center;
         }
         .question-box { 
             margin-bottom: 20px; 
@@ -18,6 +21,10 @@
             border: 1px solid #ccc; 
             border-radius: 5px; 
             background-color: #f9f9f9;
+            flex-grow: 1; /* Allow it to grow and fill space */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Space between question and buttons */
         }
         .category { 
             font-weight: bold; 
@@ -39,6 +46,7 @@
             justify-content: space-between; 
             align-items: center;
             margin-top: 30px; /* Added margin for spacing */
+            width: 100%; /* Ensure full width for the buttons */
         }
         #next-question { 
             padding: 20px 40px; 
@@ -48,6 +56,7 @@
             border: none; 
             border-radius: 5px;
             cursor: pointer;
+            flex-grow: 1; /* Make this button grow to fill the space */
         }
         #back-question { 
             padding: 10px 20px; 
@@ -57,9 +66,7 @@
             border: none; 
             border-radius: 5px;
             cursor: pointer;
-            position: absolute;
-            top: 20px;
-            left: 20px;
+            flex-grow: 0; /* Keep this button a fixed size */
         }
     </style>
 </head>
@@ -77,9 +84,11 @@
             const questionData = questions[index];
             container.innerHTML = `
                 <div class="question-box">
-                    <div class="category">${questionData.category}</div>
-                    <div class="question">${questionData.question}</div>
-                    <div class="answer">${questionData.answer}</div>
+                    <div>
+                        <div class="category">${questionData.category}</div>
+                        <div class="question">${questionData.question}</div>
+                        <div class="answer">${questionData.answer}</div>
+                    </div>
                     <div class="button-container">
                         <button id="back-question">Back</button>
                         <button id="next-question">Show Answer</button>
