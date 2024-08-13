@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Questions</title>
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- <h1>Trivia Questions</h1> -->
@@ -42,11 +42,13 @@
                 currentIndex = (currentIndex + 1) % questions.length;
                 showQuestion(currentIndex);
             } else {
-                answerElement.style.display = 'block';
+                answerElement.style.display = 'block'; // Ensure the answer is displayed
+                answerElement.classList.add('show'); // Add the 'show' class to reveal the answer
                 nextButton.textContent = 'Next Question';
                 showingAnswer = true;
             }
         });
+
 
         // Shuffle questions once at the start and show the first question
         questions.sort(() => Math.random() - 0.5);

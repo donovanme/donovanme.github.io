@@ -8,35 +8,63 @@ body {
     text-align: center; 
     display: flex; 
     flex-direction: column; 
-    height: 100vh; 
+    height: 60vh; 
     position: relative;
 }
 .question-box { 
     margin-bottom: 20px; 
     padding: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    background-color: #f9f9f9;
+    border: 2px solid #007bff; /* Stronger border with a blue color */
+    border-radius: 10px; /* More rounded corners */
+    background-color: #f0f8ff; /* Light blue background for a polished look */
+    background-image: linear-gradient(to bottom right, #f0f8ff, #e6f2ff); /* Subtle gradient */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    justify-content: center; 
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add transition for smooth interactions */
 }
-.category { 
-    font-weight: bold; 
-    color: #333; 
-    font-size: 1.5em; 
+
+.question-box:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
+
 .question { 
     margin: 20px 0; 
-    font-size: 1.8em; 
+    font-size: 2em; /* Increased font size */
+    font-weight: 600; /* Semi-bold for better emphasis */
+    color: #333; /* Rich dark gray color */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    letter-spacing: 0.5px; /* Slightly increased letter spacing */
+    line-height: 1.4; /* Increased line height for readability */
 }
+
 .answer { 
     display: none; 
-    color: green; 
+    color: #fff; /* White text for better contrast */
+    background-color: #056d1e; /* Green background */
     margin-top: 20px; 
     font-size: 1.8em; 
+    padding: 15px; /* Increase padding for more space around the text */
+    border-radius: 10px; /* Rounded corners */
+    border: 2px solid #1e7e34; /* Darker green border */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.95); /* Slightly smaller */
 }
+
+.answer.show { 
+    display: block; /* Ensure it is displayed */
+    opacity: 1; /* Fully visible */
+    transform: scale(1); /* Scale up to full size */
+}
+
+
+
+
 .button-container { 
     position: fixed; 
     bottom: 20px; 
