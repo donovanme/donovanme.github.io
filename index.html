@@ -30,7 +30,7 @@
         .category { 
             font-weight: bold; 
             color: #333; 
-            font-size: 1.5em; 
+            font-size: .5em; 
         }
         .question { 
             margin: 20px 0; 
@@ -68,7 +68,6 @@
 <body>
     <!-- <h1>Trivia Questions</h1> -->
     <div id="question-container" class="question-box">
-        <div class="category"></div>
         <div class="question"></div>
         <div class="answer"></div>
     </div>
@@ -83,14 +82,13 @@
         let currentIndex = 0;
         let showingAnswer = false;
 
-        const categoryElement = document.querySelector('.category');
+    
         const questionElement = document.querySelector('.question');
         const answerElement = document.querySelector('.answer');
         const nextButton = document.getElementById('next-question');
 
         function showQuestion(index) {
             const questionData = questions[index];
-            categoryElement.textContent = questionData.category;
             questionElement.textContent = questionData.question;
             answerElement.textContent = questionData.answer;
             answerElement.style.display = 'none'; // Hide the answer initially
