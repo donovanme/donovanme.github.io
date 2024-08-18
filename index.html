@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Questions</title>
-<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -24,15 +24,14 @@
         let currentIndex = 0;
         let showingAnswer = false;
 
-    
         const questionElement = document.querySelector('.question');
         const answerElement = document.querySelector('.answer');
         const nextButton = document.getElementById('next-question');
 
         function showQuestion(index) {
             const questionData = questions[index];
-            questionElement.textContent = questionData.question;
-            answerElement.textContent = questionData.answer;
+            questionElement.textContent = questionData.q; // Updated to use 'q' for question
+            answerElement.textContent = questionData.a; // Updated to use 'a' for answer
             answerElement.style.display = 'none'; // Hide the answer initially
             nextButton.textContent = 'Show Answer';
             showingAnswer = false;
@@ -49,7 +48,6 @@
                 showingAnswer = true;
             }
         });
-
 
         // Shuffle questions once at the start and show the first question
         questions.sort(() => Math.random() - 0.5);
