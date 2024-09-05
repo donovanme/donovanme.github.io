@@ -49,6 +49,13 @@
             }
         });
 
+        // Add event listener for keydown to detect "A" key press
+        document.addEventListener('keydown', (event) => {
+            if (event.key.toLowerCase() === 'a') { // Checks if 'a' is pressed
+                nextButton.click(); // Simulate button click
+            }
+        });
+
         // Shuffle questions once at the start and show the first question
         questions.sort(() => Math.random() - 0.5);
         showQuestion(currentIndex);
