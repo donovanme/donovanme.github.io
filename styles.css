@@ -151,7 +151,7 @@ body::before {
     color: inherit; /* Matches the text color of the surrounding content */
     text-decoration: none; /* Removes the underline */
     cursor: pointer; /* Changes the cursor to indicate it's clickable */
-    border-bottom: 2px dashed rgba(0, 0, 0, 0.1); /* Subtle dashed underline */
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.1); /* Subtle dashed underline */
 }
 
 .wiki-link:hover {
