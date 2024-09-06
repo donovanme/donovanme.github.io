@@ -20,14 +20,12 @@
     <div id="question-container" class="question-box">
         <div class="question"></div>
         <div class="answer"></div>
-        
     </div>
 
     <!-- Button Container fixed at the bottom -->
     <div class="button-container">
         <button id="next-question">Show Answer</button>
     </div>
-
 
     <script src="questions.js"></script>
     <script>
@@ -43,12 +41,43 @@
 
         function showQuestion(index) {
             const questionData = questions[index];
-            questionElement.textContent = questionData.q;
+            questionElement.innerHTML = highlightCapitalizedWords(questionData.q); // Highlight capitalized words
             answerElement.textContent = questionData.a;
             answerElement.style.display = 'none'; // Hide the answer initially
             nextButton.textContent = 'Show Answer';
             showingAnswer = false;
         }
+
+        // List of words to exclude
+        const exceptionList = [
+            "Before", "Women", "According", "Who", "What", "When", "Where", "This", 
+            "That", "An", "A", "The", "Is", "Are", "In", "Which", "How", "At", 
+            "On", "Among", "Whose","Belonging","January", "February", "March", "April", "May", 
+            "Name", "To", "By", "Written", "British", "French", "American",
+            "June", "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Updated function to handle words after exceptions
+        function highlightCapitalizedWords(text) {
+            return text.replace(/\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)*)\b/g, function(match) {
+                // Split the match by spaces to handle multi-word phrases
+                const words = match.split(' ');
+
+                // If the first word is in the exception list, check if there's more after it
+                if (exceptionList.includes(words[0]) && words.length === 1) {
+                    return match; // Return the word as is, no link
+                } else if (exceptionList.includes(words[0]) && words.length > 1) {
+                    // If the first word is an exception but the rest isn't, link only the remaining part
+                    const rest = words.slice(1).join(' ');
+                    return `${words[0]} <a href="#" class="wiki-link" data-term="${rest}">${rest}</a>`;
+                } else {
+                    return `<a href="#" class="wiki-link" data-term="${match}">${match}</a>`;
+                }
+            });
+        }
+
+
+
 
         nextButton.addEventListener('click', () => {
             if (showingAnswer) {
@@ -59,6 +88,15 @@
                 answerElement.classList.add('show'); // Add the 'show' class
                 nextButton.textContent = 'Next Question';
                 showingAnswer = true;
+            }
+        });
+
+        // Fetch Wikipedia data when a link is clicked
+        document.body.addEventListener('click', (event) => {
+            if (event.target.classList.contains('wiki-link')) {
+                event.preventDefault();
+                const searchTerm = event.target.getAttribute('data-term');
+                fetchWikipediaInfo(searchTerm);
             }
         });
 
@@ -89,6 +127,7 @@
                     modal.style.display = "block";
                 });
         }
+
 
         // Close the modal when the user clicks on the 'x' button
         closeModal.addEventListener('click', () => {

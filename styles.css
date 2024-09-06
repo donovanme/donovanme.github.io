@@ -128,6 +128,7 @@ body::before {
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
+    border-radius: 10px;
 }
 
 
@@ -143,4 +144,16 @@ body::before {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+/* Subtle style for wiki links */
+.wiki-link {
+    color: inherit; /* Matches the text color of the surrounding content */
+    text-decoration: none; /* Removes the underline */
+    cursor: pointer; /* Changes the cursor to indicate it's clickable */
+    border-bottom: 2px dashed rgba(0, 0, 0, 0.1); /* Subtle dashed underline */
+}
+
+.wiki-link:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4); /* Darker underline on hover */
 }
