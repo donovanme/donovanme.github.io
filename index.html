@@ -8,17 +8,27 @@
 </head>
 <body>
 
-    <!-- <h1>Trivia Questions</h1> -->
+    <!-- Modal for Wikipedia info -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="wiki-info"></div>
+        </div>
+    </div>
+
+    <!-- Trivia Question Section -->
     <div id="question-container" class="question-box">
         <div class="question"></div>
         <div class="answer"></div>
+        
     </div>
 
     <!-- Button Container fixed at the bottom -->
     <div class="button-container">
         <button id="next-question">Show Answer</button>
     </div>
-    
+
+
     <script src="questions.js"></script>
     <script>
         let currentIndex = 0;
@@ -27,11 +37,14 @@
         const questionElement = document.querySelector('.question');
         const answerElement = document.querySelector('.answer');
         const nextButton = document.getElementById('next-question');
+        const modal = document.getElementById("infoModal");
+        const closeModal = document.querySelector(".close");
+        const wikiInfoElement = document.getElementById('wiki-info');
 
         function showQuestion(index) {
             const questionData = questions[index];
-            questionElement.textContent = questionData.q; // Updated to use 'q' for question
-            answerElement.textContent = questionData.a; // Updated to use 'a' for answer
+            questionElement.textContent = questionData.q;
+            answerElement.textContent = questionData.a;
             answerElement.style.display = 'none'; // Hide the answer initially
             nextButton.textContent = 'Show Answer';
             showingAnswer = false;
@@ -42,23 +55,63 @@
                 currentIndex = (currentIndex + 1) % questions.length;
                 showQuestion(currentIndex);
             } else {
-                answerElement.style.display = 'block'; // Ensure the answer is displayed
-                answerElement.classList.add('show'); // Add the 'show' class to reveal the answer
+                answerElement.style.display = 'block'; // Show the answer
+                answerElement.classList.add('show'); // Add the 'show' class
                 nextButton.textContent = 'Next Question';
                 showingAnswer = true;
             }
         });
 
-        // Add event listener for keydown to detect "A" key press
-        document.addEventListener('keydown', (event) => {
-            if (event.key.toLowerCase() === 'a') { // Checks if 'a' is pressed
-                nextButton.click(); // Simulate button click
+        // Fetch Wikipedia data when the answer is clicked
+        answerElement.addEventListener('click', () => {
+            const answerText = answerElement.textContent;
+            fetchWikipediaInfo(answerText);
+        });
+
+        function fetchWikipediaInfo(searchTerm) {
+            const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm)}`;
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.extract) {
+                        wikiInfoElement.innerHTML = `<h3>${data.title}</h3><p>${data.extract}</p>`;
+                        if (data.thumbnail && data.thumbnail.source) {
+                            wikiInfoElement.innerHTML += `<img src="${data.thumbnail.source}" alt="${data.title}">`;
+                        }
+                    } else {
+                        wikiInfoElement.innerHTML = `<p>No information found for ${searchTerm}</p>`;
+                    }
+                    modal.style.display = "block";
+                })
+                .catch(error => {
+                    console.error("Error fetching Wikipedia data:", error);
+                    wikiInfoElement.innerHTML = `<p>Error fetching information for ${searchTerm}</p>`;
+                    modal.style.display = "block";
+                });
+        }
+
+        // Close the modal when the user clicks on the 'x' button
+        closeModal.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // Close the modal if the user clicks outside the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
             }
         });
 
-        // Shuffle questions once at the start and show the first question
+        // Shuffle questions and show the first question
         questions.sort(() => Math.random() - 0.5);
         showQuestion(currentIndex);
+
+        // Add event listener for keydown to detect "A" key press
+        document.addEventListener('keydown', (event) => {
+            if (event.key.toLowerCase() === 'a') {
+                nextButton.click();
+            }
+        });
     </script>
 </body>
 </html>

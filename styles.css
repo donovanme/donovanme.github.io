@@ -1,5 +1,3 @@
-/* styles.css */
-
 body {
     font-family: Arial, sans-serif;
     max-width: 800px;
@@ -10,13 +8,14 @@ body {
     flex-direction: column;
     height: 70vh;
     position: relative;
-    background-color: rgba(224, 247, 250, 0.7); /* Semi-transparent background color */
-    background-image: url('background.jpg'); /* Use your PNG image here */
-    background-size: auto; /* Do not stretch the image */
-    background-repeat: repeat; /* Tile the image */
-    background-position: center; /* Center the tiling */
-    background-blend-mode: multiply; /* Blend the image with the background color */
+    background-color: rgba(224, 247, 250, 0.7);
+    background-image: url('background.jpg');
+    background-size: auto;
+    background-repeat: repeat;
+    background-position: center;
+    background-blend-mode: multiply;
 }
+
 body::before {
     content: '';
     position: absolute;
@@ -24,85 +23,124 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('seamless-background.png'); /* Your PNG image */
+    background-image: url('seamless-background.png');
     background-size: auto;
     background-repeat: repeat;
     background-position: center;
-    opacity: 0.5; /* Control the transparency */
-    z-index: -1; /* Ensure it's behind the content */
+    opacity: 0.5;
+    z-index: -1;
 }
 
-
-.question-box { 
-    margin-bottom: 20px; 
-    padding: 20px; 
-    border: 2px solid #007bff; /* Stronger border with a blue color */
-    border-radius: 10px; /* More rounded corners */
-    background-color: #f0f8ff; /* Light blue background for a polished look */
-    background-image: linear-gradient(to bottom right, #f0f8ff, #e6f2ff); /* Subtle gradient */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    flex-grow: 1; 
+.question-box {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #f0f8ff;
+    background-image: linear-gradient(to bottom right, #f0f8ff, #e6f2ff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add transition for smooth interactions */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .question-box:hover {
-    transform: translateY(-3px); /* Slight lift on hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.question { 
-    margin: 20px 0; 
-    font-size: 2em; /* Increased font size */
-    font-weight: 600; /* Semi-bold for better emphasis */
-    color: #333; /* Rich dark gray color */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    letter-spacing: 0.5px; /* Slightly increased letter spacing */
-    line-height: 1.4; /* Increased line height for readability */
+.question {
+    margin: 20px 0;
+    font-size: 2em;
+    font-weight: 600;
+    color: #333;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+    line-height: 1.4;
 }
 
-.answer { 
-    display: none; 
-    color: #fff; /* White text for better contrast */
-    background-color: #056d1e; /* Green background */
-    margin-top: 20px; 
-    font-size: 1.8em; 
-    padding: 15px; /* Increase padding for more space around the text */
-    border-radius: 10px; /* Rounded corners */
-    border: 2px solid #1e7e34; /* Darker green border */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
-    opacity: 0; /* Initially hidden */
-    transform: scale(0.95); /* Slightly smaller */
+.answer {
+    display: none;
+    color: #fff;
+    background-color: #056d1e;
+    margin-top: 20px;
+    font-size: 1.8em;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #1e7e34;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: scale(0.95);
 }
 
-.answer.show { 
-    display: block; /* Ensure it is displayed */
-    opacity: 1; /* Fully visible */
-    transform: scale(1); /* Scale up to full size */
+.answer.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
 }
 
-
-.button-container { 
-    position: fixed; 
-    bottom: 20px; 
-    left: 0; 
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
     right: 0;
-    width: 100%; 
-    display: flex; 
-    justify-content: center; 
+    width: 100%;
+    display: flex;
+    justify-content: center;
     padding: 10px 20px;
     box-sizing: border-box;
 }
-#next-question { 
-    padding: 20px 40px; 
-    font-size: 1.5em; 
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
+
+#next-question {
+    padding: 20px 40px;
+    font-size: 1.5em;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    max-width: 70%; 
+    max-width: 70%;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+.modal-content {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
